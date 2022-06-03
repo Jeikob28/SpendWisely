@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">SpendWisely</string>
+    <string name="fr_gastos">Fragmento Gastos</string>
+    <string name="fr_cuentas">Fragmento Cuentas</string>
+    <string name="fr_resumen">Fragmento Resumen</string>
+    <string name="hello_blank_fragment">Fragmento Nuevo Gasto</string>
+    <string name="titulo_nuevo_gasto">Nuevo Gasto</string>
+    <string name="titulo_editar_gasto">Editar Gasto</string>
+</resources>
