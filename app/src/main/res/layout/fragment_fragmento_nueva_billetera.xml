@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".fragmentos.gastos.FragmentoNuevoGasto">
+    tools:context=".fragmentos.cuentas.FragmentoNuevaBilletera">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -17,71 +17,39 @@
             android:padding="10dp">
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_cantidad"
+                android:id="@+id/til_nombre"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:hint="Cantidad"
+                android:hint="Nombre"
+                app:startIconDrawable="@drawable/ic_baseline__wallet_24"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tiet_nombre"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_saldo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/til_nombre"
+                android:hint="Saldo"
+                android:layout_marginTop="5dp"
                 app:startIconDrawable="@drawable/ic_baseline__money_24"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tiet_cantidad"
+                    android:id="@+id/tiet_saldo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="numberDecimal" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_fecha"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/til_cantidad"
-                app:layout_constraintStart_toStartOf="parent"
-                android:padding="10dp"
-                android:layout_marginTop="10dp"
-                android:text="Fecha:"
-                android:textSize="17sp" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_fecha_elegida"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/til_cantidad"
-                app:layout_constraintLeft_toRightOf="@+id/tv_fecha"
-                android:padding="10dp"
-                android:layout_marginTop="10dp"
-                android:text=""
-                android:textSize="17sp" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_fecha"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintLeft_toRightOf="@+id/tv_fecha_elegida"
-                app:layout_constraintTop_toBottomOf="@+id/til_cantidad"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_margin="6dp"
-                android:text="ELEGIR"/>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_nota"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_fecha"
-                android:hint="Nota"
-                android:layout_marginTop="2dp"
-                app:startIconDrawable="@drawable/ic_baseline_add_comment_24"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tiet_nota"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -90,7 +58,7 @@
     </androidx.core.widget.NestedScrollView>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_guardar_gasto"
+        android:id="@+id/btn_guardar_billetera"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"

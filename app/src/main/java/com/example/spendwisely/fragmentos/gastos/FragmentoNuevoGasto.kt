@@ -1,6 +1,7 @@
 package com.example.spendwisely.fragmentos.gastos
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
@@ -23,7 +24,7 @@ class FragmentoNuevoGasto : Fragment() {
 
     private var mActivity : MainActivity? = null
     private lateinit var mGastoViewModel : GastoViewModel
-    private lateinit var fechaGasto : Date
+    private var fechaGasto : Date? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,13 +33,11 @@ class FragmentoNuevoGasto : Fragment() {
         // Inflate the layout for this fragment
         val view : View = inflater.inflate(R.layout.fragment_fragmento_nuevo_gasto, container, false)
 
+        val botonGuardarGasto = view.findViewById<MaterialButton>(R.id.btn_guardar_gasto)
+        val botonCalendario = view.findViewById<MaterialButton>(R.id.btn_fecha)
+        val tvFechaElegida = view.findViewById<MaterialTextView>(R.id.tv_fecha_elegida)
+
         val datePicker = MaterialDatePicker.Builder.datePicker().setTitleText("ELIGE LA FECHA").build()
-
-        val boton_guardar_gasto = view.findViewById<MaterialButton>(R.id.btn_guardar_gasto)
-
-        val boton_calendario = view.findViewById<MaterialButton>(R.id.btn_fecha)
-
-        val tv_fecha_elegida = view.findViewById<MaterialTextView>(R.id.tv_fecha_elegida)
 
         mGastoViewModel = ViewModelProvider(this)[GastoViewModel::class.java]
 
@@ -48,15 +47,14 @@ class FragmentoNuevoGasto : Fragment() {
             val nota = view.findViewById<TextInputEditText>(R.id.tiet_nota)
 
             cantidad.setText(gasto.cantidad.toString())
+            nota.setText(gasto.nota)
 
             fechaGasto = gasto.fecha
-            val fecha = SimpleDateFormat("dd-MMM-yy",Locale.getDefault()).format(fechaGasto)
-            tv_fecha_elegida.text = fecha
-
-            nota.setText(gasto.nota)
+            val fecha = SimpleDateFormat("dd-MMM-yy",Locale.getDefault()).format(fechaGasto!!)
+            tvFechaElegida.text = fecha
         }
 
-        boton_calendario.setOnClickListener {
+        botonCalendario.setOnClickListener {
             datePicker.show(parentFragmentManager,"DATE_PICKER")
         }
 
@@ -64,11 +62,12 @@ class FragmentoNuevoGasto : Fragment() {
             val calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"))
             calendar.timeInMillis = it
             fechaGasto = calendar.time
-            val fecha = SimpleDateFormat("dd-MMM-yy",Locale.getDefault()).format(fechaGasto)
-            tv_fecha_elegida.text = fecha
+
+            val fecha = SimpleDateFormat("dd-MMM-yy",Locale.getDefault()).format(fechaGasto!!)
+            tvFechaElegida.text = fecha
         }
 
-        boton_guardar_gasto.setOnClickListener {
+        botonGuardarGasto.setOnClickListener {
             if (arguments != null) {
                 val gasto : Gasto = requireArguments().get("Gasto") as Gasto
                 actualizarGastoDB(gasto.id)
@@ -92,48 +91,6 @@ class FragmentoNuevoGasto : Fragment() {
         setHasOptionsMenu(true)
     }
 
-    private fun guardarGastoDB() {
-
-        val cantidad = view?.findViewById<TextInputEditText>(R.id.tiet_cantidad)?.text.toString().toDoubleOrNull()
-        val nota = view?.findViewById<TextInputEditText>(R.id.tiet_nota)?.text.toString()
-
-        if (inputCheck(cantidad,nota)) {
-            //Crear gasto
-            val gasto = Gasto(0, cantidad!!, fechaGasto, nota)
-            //Añadir gasto
-            mGastoViewModel.addGasto(gasto)
-            Toast.makeText(requireContext(),"Añadido satisfactoriamente!",Toast.LENGTH_LONG).show()
-            //Volver al fragmento anterior
-            parentFragmentManager.popBackStackImmediate()
-        } else {
-            Toast.makeText(requireContext(),"Rellena todos los campos",Toast.LENGTH_LONG).show()
-        }
-
-    }
-
-    private fun actualizarGastoDB(idGasto : Long) {
-
-        val cantidad = view?.findViewById<TextInputEditText>(R.id.tiet_cantidad)?.text.toString().toDoubleOrNull()
-        val nota = view?.findViewById<TextInputEditText>(R.id.tiet_nota)?.text.toString()
-
-        if (inputCheck(cantidad,nota)) {
-            //Crear gasto
-            val gastoUpdated = Gasto(idGasto, cantidad!!, fechaGasto, nota)
-            //Actualizar gasto
-            mGastoViewModel.updateGasto(gastoUpdated)
-            Toast.makeText(requireContext(),"Actualizado satisfactoriamente!",Toast.LENGTH_LONG).show()
-            //Volver al fragmento anterior
-            parentFragmentManager.popBackStackImmediate()
-        } else {
-            Toast.makeText(requireContext(),"Rellena todos los campos",Toast.LENGTH_LONG).show()
-        }
-
-    }
-
-    private fun inputCheck(cantidad : Double?, nota : String): Boolean {
-        return cantidad!=null && nota!=""
-    }
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             android.R.id.home -> {
@@ -148,11 +105,49 @@ class FragmentoNuevoGasto : Fragment() {
         super.onDestroy()
 
         mActivity?.supportActionBar?.setDisplayHomeAsUpEnabled(false)
-        mActivity?.supportActionBar?.title=getString(R.string.app_name)
+        mActivity?.supportActionBar?.title = getString(R.string.title_gastos)
 
         val frag = parentFragmentManager.fragments[0] as? FragmentoGastos
         frag?.hideFAB(true)
         frag?.hideBotomNavBar(true)
+    }
+
+    private fun guardarGastoDB() {
+        val cantidad = view?.findViewById<TextInputEditText>(R.id.tiet_cantidad)?.text.toString().toDoubleOrNull()
+        val nota = view?.findViewById<TextInputEditText>(R.id.tiet_nota)?.text.toString()
+
+        if (inputCheck(cantidad,fechaGasto,nota)) {
+            //Crear gasto
+            val gasto = Gasto(0,cantidad!!,fechaGasto!!,nota)
+            //Añadir gasto
+            mGastoViewModel.addGasto(gasto)
+            Toast.makeText(requireContext(),"Añadido satisfactoriamente!",Toast.LENGTH_LONG).show()
+            //Volver al fragmento anterior
+            parentFragmentManager.popBackStackImmediate()
+        } else {
+            Toast.makeText(requireContext(),"Rellena todos los campos",Toast.LENGTH_LONG).show()
+        }
+    }
+
+    private fun actualizarGastoDB(idGasto : Long) {
+        val cantidad = view?.findViewById<TextInputEditText>(R.id.tiet_cantidad)?.text.toString().toDoubleOrNull()
+        val nota = view?.findViewById<TextInputEditText>(R.id.tiet_nota)?.text.toString()
+
+        if (inputCheck(cantidad,fechaGasto,nota)) {
+            //Crear gasto
+            val gastoUpdated = Gasto(idGasto,cantidad!!,fechaGasto!!,nota)
+            //Actualizar gasto
+            mGastoViewModel.updateGasto(gastoUpdated)
+            Toast.makeText(requireContext(),"Actualizado satisfactoriamente!",Toast.LENGTH_LONG).show()
+            //Volver al fragmento anterior
+            parentFragmentManager.popBackStackImmediate()
+        } else {
+            Toast.makeText(requireContext(),"Rellena todos los campos",Toast.LENGTH_LONG).show()
+        }
+    }
+
+    private fun inputCheck(cantidad : Double?, fecha : Date?, nota : String): Boolean {
+        return cantidad!=null && fecha!=null && nota!=""
     }
 
 }

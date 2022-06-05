@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.spendwisely.R
 import com.example.spendwisely.data.entidades.Gasto
 
-class GastoListAdapter(private var mListener : OnItemClickListener) : RecyclerView.Adapter<GastoListAdapter.GastoViewHolder>() {
+class GastoListAdapter(private var mListener : OnGastoClickListener) : RecyclerView.Adapter<GastoListAdapter.GastoViewHolder>() {
 
     private var gastoList = emptyList<Gasto>()
 

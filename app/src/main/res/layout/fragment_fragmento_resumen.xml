@@ -5,7 +5,7 @@
     android:id="@+id/frag_resumen"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragmentos.FragmentoResumen">
+    tools:context=".fragmentos.resumen.FragmentoResumen">
 
     <com.github.mikephil.charting.charts.PieChart
         android:id="@+id/frag_resumen_piechart"

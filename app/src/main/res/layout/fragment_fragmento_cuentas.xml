@@ -5,7 +5,17 @@
     android:id="@+id/frag_cuentas"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragmentos.FragmentoCuentas">
+    tools:context=".fragmentos.cuentas.FragmentoCuentas">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_cuentas"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:listitem="@layout/item_cuenta_rv"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_cuentas"

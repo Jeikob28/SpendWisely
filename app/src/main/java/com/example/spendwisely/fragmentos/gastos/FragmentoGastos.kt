@@ -19,7 +19,7 @@ import com.example.spendwisely.data.view_models.GastoViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
-class FragmentoGastos : Fragment(), FragGastosAux, OnItemClickListener {
+class FragmentoGastos : Fragment(), FragGastosAux, OnGastoClickListener {
 
     private lateinit var fabGastos : FloatingActionButton
     private var botomNavBar : BottomNavigationView? = null
@@ -58,6 +58,24 @@ class FragmentoGastos : Fragment(), FragGastosAux, OnItemClickListener {
         return view
     }
 
+    private fun launchFragNuevoGasto(fragmentoNuevoGasto : Fragment) {
+        parentFragmentManager.beginTransaction().replace(R.id.frag_gastos, fragmentoNuevoGasto).addToBackStack(null).commit()
+        hideFAB(false)
+        hideBotomNavBar(false)
+    }
+
+    private fun deleteGasto(gasto: Gasto) {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setPositiveButton("Si") { _, _ ->
+            mGastoViewModel.deleteGasto(gasto)
+            Toast.makeText(requireContext(),"Eliminado satisfactoriamente!",Toast.LENGTH_LONG).show()
+        }
+        builder.setNegativeButton("No") { _, _ -> }
+        builder.setTitle("Eliminar")
+        builder.setMessage("¿Está seguro?")
+        builder.create().show()
+    }
+
     override fun onItemClick(gasto: Gasto) {
         val fragmentoNuevoGasto = FragmentoNuevoGasto()
         val bundle = Bundle()
@@ -70,26 +88,6 @@ class FragmentoGastos : Fragment(), FragGastosAux, OnItemClickListener {
     override fun onLongItemClick(gasto: Gasto): Boolean {
         deleteGasto(gasto)
         return true
-    }
-
-    private fun deleteGasto(gasto: Gasto) {
-
-        val builder = AlertDialog.Builder(requireContext())
-        builder.setPositiveButton("Si") { _, _ ->
-            mGastoViewModel.deleteGasto(gasto)
-            Toast.makeText(requireContext(),"Eliminado satisfactoriamente!",Toast.LENGTH_LONG).show()
-        }
-        builder.setNegativeButton("No") { _, _ -> }
-        builder.setTitle("Eliminar")
-        builder.setMessage("¿Está seguro?")
-        builder.create().show()
-
-    }
-
-    private fun launchFragNuevoGasto(fragmentoNuevoGasto : Fragment) {
-        parentFragmentManager.beginTransaction().replace(R.id.frag_gastos, fragmentoNuevoGasto).addToBackStack(null).commit()
-        hideFAB(false)
-        hideBotomNavBar(false)
     }
 
     override fun hideFAB(isVisible: Boolean) {

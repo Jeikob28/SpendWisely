@@ -2,7 +2,7 @@ package com.example.spendwisely.fragmentos.gastos
 
 import com.example.spendwisely.data.entidades.Gasto
 
-interface OnItemClickListener {
+interface OnGastoClickListener {
 
     fun onItemClick (gasto: Gasto)
 

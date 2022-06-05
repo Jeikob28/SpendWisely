@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Jacobo/AndroidStudioProjects/SpendWisely/app/src/main/res/drawable/ic_baseline__money_24.xml" value="0.327" />
+        <entry key="..\:/Users/Jacobo/AndroidStudioProjects/SpendWisely/app/src/main/res/drawable/ic_baseline__wallet_24.xml" value="0.327" />
         <entry key="..\:/Users/Jacobo/AndroidStudioProjects/SpendWisely/app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.327" />
         <entry key="..\:/Users/Jacobo/AndroidStudioProjects/SpendWisely/app/src/main/res/drawable/ic_cuentas_foreground.xml" value="0.327" />
         <entry key="..\:/Users/Jacobo/AndroidStudioProjects/SpendWisely/app/src/main/res/drawable/ic_gastos_background.xml" value="0.327" />
@@ -12,8 +13,10 @@
         <entry key="..\:/Users/Jacobo/AndroidStudioProjects/SpendWisely/app/src/main/res/layout/fragment_fragmento_cuentas.xml" value="0.38697916666666665" />
         <entry key="..\:/Users/Jacobo/AndroidStudioProjects/SpendWisely/app/src/main/res/layout/fragment_fragmento_edit_gasto.xml" value="0.38697916666666665" />
         <entry key="..\:/Users/Jacobo/AndroidStudioProjects/SpendWisely/app/src/main/res/layout/fragment_fragmento_gastos.xml" value="0.38697916666666665" />
+        <entry key="..\:/Users/Jacobo/AndroidStudioProjects/SpendWisely/app/src/main/res/layout/fragment_fragmento_nueva_billetera.xml" value="0.33" />
         <entry key="..\:/Users/Jacobo/AndroidStudioProjects/SpendWisely/app/src/main/res/layout/fragment_fragmento_nuevo_gasto.xml" value="0.33" />
         <entry key="..\:/Users/Jacobo/AndroidStudioProjects/SpendWisely/app/src/main/res/layout/fragment_fragmento_resumen.xml" value="0.3729166666666667" />
+        <entry key="..\:/Users/Jacobo/AndroidStudioProjects/SpendWisely/app/src/main/res/layout/item_cuenta_rv.xml" value="0.38697916666666665" />
         <entry key="..\:/Users/Jacobo/AndroidStudioProjects/SpendWisely/app/src/main/res/layout/item_gasto_rv.xml" value="0.38697916666666665" />
         <entry key="..\:/Users/Jacobo/AndroidStudioProjects/SpendWisely/app/src/main/res/menu/bottom_bar_menu.xml" value="0.38697916666666665" />
       </map>

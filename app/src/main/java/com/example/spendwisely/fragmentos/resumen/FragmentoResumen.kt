@@ -1,4 +1,4 @@
-package com.example.spendwisely.fragmentos
+package com.example.spendwisely.fragmentos.resumen
 
 import android.graphics.Color
 import android.os.Bundle
