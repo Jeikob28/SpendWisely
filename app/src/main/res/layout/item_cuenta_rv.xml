@@ -4,7 +4,7 @@
     android:id="@+id/rv_item_cuenta"
     android:layout_width="match_parent"
     android:layout_height="60dp"
-    android:backgroundTint="@color/teal_700"
+    android:backgroundTint="@color/orange"
     android:layout_margin="10dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout

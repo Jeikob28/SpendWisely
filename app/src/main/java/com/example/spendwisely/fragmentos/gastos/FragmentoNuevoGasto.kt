@@ -11,7 +11,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.spendwisely.MainActivity
 import com.example.spendwisely.R
+import com.example.spendwisely.data.entidades.Cuenta
 import com.example.spendwisely.data.entidades.Gasto
+import com.example.spendwisely.data.view_models.CuentaViewModel
 import com.example.spendwisely.data.view_models.GastoViewModel
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -24,6 +26,8 @@ class FragmentoNuevoGasto : Fragment() {
 
     private var mActivity : MainActivity? = null
     private lateinit var mGastoViewModel : GastoViewModel
+    private lateinit var mCuentaViewModel: CuentaViewModel
+    private var antiguaCantidad : Double = 0.0
     private var fechaGasto : Date? = null
 
     override fun onCreateView(
@@ -40,11 +44,14 @@ class FragmentoNuevoGasto : Fragment() {
         val datePicker = MaterialDatePicker.Builder.datePicker().setTitleText("ELIGE LA FECHA").build()
 
         mGastoViewModel = ViewModelProvider(this)[GastoViewModel::class.java]
+        mCuentaViewModel = ViewModelProvider(this)[CuentaViewModel::class.java]
 
         if (arguments != null) {
             val gasto : Gasto = requireArguments().get("Gasto") as Gasto
             val cantidad = view.findViewById<TextInputEditText>(R.id.tiet_cantidad)
             val nota = view.findViewById<TextInputEditText>(R.id.tiet_nota)
+
+            antiguaCantidad = gasto.cantidad
 
             cantidad.setText(gasto.cantidad.toString())
             nota.setText(gasto.nota)
@@ -121,6 +128,8 @@ class FragmentoNuevoGasto : Fragment() {
             val gasto = Gasto(0,cantidad!!,fechaGasto!!,nota)
             //Añadir gasto
             mGastoViewModel.addGasto(gasto)
+            //Actualizamos la cartera
+            mCuentaViewModel.restarSaldo(gasto.cantidad)
             Toast.makeText(requireContext(),"Añadido satisfactoriamente!",Toast.LENGTH_LONG).show()
             //Volver al fragmento anterior
             parentFragmentManager.popBackStackImmediate()
@@ -138,6 +147,8 @@ class FragmentoNuevoGasto : Fragment() {
             val gastoUpdated = Gasto(idGasto,cantidad!!,fechaGasto!!,nota)
             //Actualizar gasto
             mGastoViewModel.updateGasto(gastoUpdated)
+            //Actualizamos la cartera
+            mCuentaViewModel.restarSaldo(gastoUpdated.cantidad-antiguaCantidad)
             Toast.makeText(requireContext(),"Actualizado satisfactoriamente!",Toast.LENGTH_LONG).show()
             //Volver al fragmento anterior
             parentFragmentManager.popBackStackImmediate()

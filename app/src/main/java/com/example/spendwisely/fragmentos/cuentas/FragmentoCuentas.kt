@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -32,6 +33,8 @@ class FragmentoCuentas : Fragment(), FragCuentasAux, OnCuentaClickListener {
         // Inflate the layout for this fragment
         val view : View = inflater.inflate(R.layout.fragment_fragmento_cuentas, container, false)
 
+        var saldoTotal = view.findViewById<TextView>(R.id.saldo_total)
+
         fabCuentas = view.findViewById(R.id.fab_cuentas)
         botomNavView = activity?.findViewById(R.id.bottomNavigationBar)
 
@@ -42,8 +45,21 @@ class FragmentoCuentas : Fragment(), FragCuentasAux, OnCuentaClickListener {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         mCuentaViewModel = ViewModelProvider(this)[CuentaViewModel::class.java]
-        mCuentaViewModel.allCuentas.observe(viewLifecycleOwner, Observer { cuenta ->
-            adapter.setData(cuenta)
+
+        mCuentaViewModel.allCuentas.observe(viewLifecycleOwner, Observer { listCuentas ->
+            if (listCuentas.isEmpty()) {
+                mCuentaViewModel.addCuenta(Cuenta(0,"Efectivo",0.0))
+                adapter.setData(listCuentas)
+            } else {
+                adapter.setData(listCuentas)
+            }
+        })
+
+        mCuentaViewModel.sumCuentas.observe(viewLifecycleOwner, Observer { saldo ->
+            if (saldo != null) {
+                saldoTotal.text = saldo.toString()
+            } else
+                saldoTotal.text = "0"
         })
 
         //Color del icono del FAB
@@ -66,14 +82,19 @@ class FragmentoCuentas : Fragment(), FragCuentasAux, OnCuentaClickListener {
 
     private fun deleteCuenta(cuenta: Cuenta) {
         val builder = AlertDialog.Builder(requireContext())
-        builder.setPositiveButton("Si") { _, _ ->
-            mCuentaViewModel.deleteCuenta(cuenta)
-            Toast.makeText(requireContext(),"Eliminado satisfactoriamente!", Toast.LENGTH_LONG).show()
+        if (cuenta.id.toInt()!=1 && cuenta.nombre!="Efectivo") {
+            builder.setPositiveButton("Si") { _, _ ->
+                mCuentaViewModel.deleteCuenta(cuenta)
+                Toast.makeText(requireContext(),"Eliminado satisfactoriamente!", Toast.LENGTH_LONG).show()
+            }
+            builder.setNegativeButton("No") { _, _ -> }
+            builder.setTitle("Eliminar")
+            builder.setMessage("¿Está seguro?")
+            builder.create().show()
+        } else {
+            builder.setMessage("No puedes eliminar la cartera de efectivo.")
+            builder.create().show()
         }
-        builder.setNegativeButton("No") { _, _ -> }
-        builder.setTitle("Eliminar")
-        builder.setMessage("¿Está seguro?")
-        builder.create().show()
     }
 
     override fun onItemClick(cuenta: Cuenta) {

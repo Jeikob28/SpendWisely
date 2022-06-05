@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.spendwisely.R
 import com.example.spendwisely.data.entidades.Gasto
+import com.example.spendwisely.data.view_models.CuentaViewModel
 import com.example.spendwisely.data.view_models.GastoViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -24,6 +25,7 @@ class FragmentoGastos : Fragment(), FragGastosAux, OnGastoClickListener {
     private lateinit var fabGastos : FloatingActionButton
     private var botomNavBar : BottomNavigationView? = null
     private lateinit var mGastoViewModel : GastoViewModel
+    private lateinit var mCuentaViewModel: CuentaViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,8 +44,10 @@ class FragmentoGastos : Fragment(), FragGastosAux, OnGastoClickListener {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         mGastoViewModel = ViewModelProvider(this)[GastoViewModel::class.java]
-        mGastoViewModel.allGastos.observe(viewLifecycleOwner, Observer { gasto ->
-            adapter.setData(gasto)
+        mCuentaViewModel = ViewModelProvider(this)[CuentaViewModel::class.java]
+
+        mGastoViewModel.allGastos.observe(viewLifecycleOwner, Observer { listGastos ->
+            adapter.setData(listGastos)
         })
 
         //Color del icono del FAB
@@ -67,6 +71,7 @@ class FragmentoGastos : Fragment(), FragGastosAux, OnGastoClickListener {
     private fun deleteGasto(gasto: Gasto) {
         val builder = AlertDialog.Builder(requireContext())
         builder.setPositiveButton("Si") { _, _ ->
+            mCuentaViewModel.sumarSaldo(gasto.cantidad)
             mGastoViewModel.deleteGasto(gasto)
             Toast.makeText(requireContext(),"Eliminado satisfactoriamente!",Toast.LENGTH_LONG).show()
         }

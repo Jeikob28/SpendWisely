@@ -13,12 +13,14 @@ import kotlinx.coroutines.launch
 class CuentaViewModel(application: Application) : AndroidViewModel(application) {
 
     val allCuentas : LiveData<List<Cuenta>>
+    val sumCuentas : LiveData<Double>
     private val repository : CuentaRepository
 
     init {
         val cuentaDao = SWRoomDatabase.getSWDatabase(application).cuentaDao()
         repository = CuentaRepository(cuentaDao)
         allCuentas = repository.allCuentas
+        sumCuentas = repository.sumSaldoCuentas
     }
 
     fun addCuenta(cuenta: Cuenta) {
@@ -36,6 +38,18 @@ class CuentaViewModel(application: Application) : AndroidViewModel(application) 
     fun deleteCuenta(cuenta: Cuenta) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.delete(cuenta)
+        }
+    }
+
+    fun restarSaldo(gasto: Double) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.restarSaldo(gasto)
+        }
+    }
+
+    fun sumarSaldo(saldo: Double) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.sumarSaldo(saldo)
         }
     }
 
