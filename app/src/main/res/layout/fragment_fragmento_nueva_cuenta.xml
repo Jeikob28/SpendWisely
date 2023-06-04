@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".fragmentos.cuentas.FragmentoNuevaBilletera">
+    tools:context=".fragmentos.cuentas.FragmentoNuevaCuenta">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -58,7 +58,7 @@
     </androidx.core.widget.NestedScrollView>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_guardar_billetera"
+        android:id="@+id/btn_guardar_cuenta"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"

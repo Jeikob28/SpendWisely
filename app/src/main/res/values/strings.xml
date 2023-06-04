@@ -1,12 +1,12 @@
 <resources>
     <string name="app_name">SpendWisely</string>
-    <string name="fr_gastos">Fragmento Gastos</string>
+    <string name="fr_transacciones">Fragmento Transacciones</string>
     <string name="fr_cuentas">Fragmento Cuentas</string>
     <string name="fr_resumen">Fragmento Resumen</string>
     <string name="hello_blank_fragment">Fragmento en blanco</string>
-    <string name="titulo_nuevo_gasto">Nuevo Gasto</string>
-    <string name="titulo_editar_gasto">Editar Gasto</string>
-    <string name="title_gastos">Mis Gastos</string>
+    <string name="titulo_nueva_transaccion">Nueva Transaccion</string>
+    <string name="titulo_editar_transaccion">Editar Transaccion</string>
+    <string name="title_transacciones">Mis Transacciones</string>
     <string name="title_cuentas">Mis Cuentas</string>
     <string name="title_resumen">Mi Resumen</string>
     <string name="titulo_editar_billetera">Editar Billetera</string>

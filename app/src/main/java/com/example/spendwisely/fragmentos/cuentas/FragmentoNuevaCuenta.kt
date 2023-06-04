@@ -1,7 +1,6 @@
 package com.example.spendwisely.fragmentos.cuentas
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.MenuItem
@@ -12,13 +11,12 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.spendwisely.MainActivity
 import com.example.spendwisely.R
 import com.example.spendwisely.data.entidades.Cuenta
-import com.example.spendwisely.data.entidades.Gasto
 import com.example.spendwisely.data.view_models.CuentaViewModel
-import com.example.spendwisely.fragmentos.gastos.FragmentoGastos
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
+import java.math.BigDecimal
 
-class FragmentoNuevaBilletera : Fragment() {
+class FragmentoNuevaCuenta : Fragment() {
 
     private var mActivity : MainActivity? = null
     private lateinit var mCuentaViewModel : CuentaViewModel
@@ -28,9 +26,9 @@ class FragmentoNuevaBilletera : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        val view : View = inflater.inflate(R.layout.fragment_fragmento_nueva_billetera, container, false)
+        val view : View = inflater.inflate(R.layout.fragment_fragmento_nueva_cuenta, container, false)
 
-        val botonGuardarBill = view.findViewById<MaterialButton>(R.id.btn_guardar_billetera)
+        val botonGuardarBill = view.findViewById<MaterialButton>(R.id.btn_guardar_cuenta)
 
         mCuentaViewModel = ViewModelProvider(this)[CuentaViewModel::class.java]
 
@@ -91,7 +89,7 @@ class FragmentoNuevaBilletera : Fragment() {
 
     private fun guardarBilleteraDB() {
         val nombre = view?.findViewById<TextInputEditText>(R.id.tiet_nombre)?.text.toString()
-        val saldo = view?.findViewById<TextInputEditText>(R.id.tiet_saldo)?.text.toString().toDoubleOrNull()
+        val saldo = view?.findViewById<TextInputEditText>(R.id.tiet_saldo)?.text.toString().toBigDecimalOrNull()
 
         if (inputCheck(nombre,saldo)) {
             //Crear cuenta
@@ -108,7 +106,7 @@ class FragmentoNuevaBilletera : Fragment() {
 
     private fun actualizarBilleteraDB(idCuenta : Long) {
         val nombre = view?.findViewById<TextInputEditText>(R.id.tiet_nombre)?.text.toString()
-        val saldo = view?.findViewById<TextInputEditText>(R.id.tiet_saldo)?.text.toString().toDoubleOrNull()
+        val saldo = view?.findViewById<TextInputEditText>(R.id.tiet_saldo)?.text.toString().toBigDecimalOrNull()
 
         if (inputCheck(nombre,saldo)) {
             //Crear cuenta
@@ -123,7 +121,7 @@ class FragmentoNuevaBilletera : Fragment() {
         }
     }
 
-    private fun inputCheck(nombre : String, saldo : Double?): Boolean {
+    private fun inputCheck(nombre : String, saldo : BigDecimal?): Boolean {
         return nombre!="" && saldo!=null
     }
 

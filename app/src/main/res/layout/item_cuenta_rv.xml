@@ -3,9 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/rv_item_cuenta"
     android:layout_width="match_parent"
-    android:layout_height="60dp"
-    android:backgroundTint="@color/orange"
-    android:layout_margin="10dp">
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    app:cardCornerRadius="10dp"
+    app:cardBackgroundColor="@color/orange">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

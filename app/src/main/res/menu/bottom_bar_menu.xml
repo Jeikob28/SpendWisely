@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/gastos"
-        android:title="Gastos"
-        android:icon="@drawable/ic_gastos_foreground"/>
+        android:id="@+id/transacciones"
+        android:title="Transacciones"
+        android:icon="@drawable/ic_transacciones_foreground"/>
     <item
         android:id="@+id/cuentas"
         android:title="Cuentas"

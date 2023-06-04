@@ -9,11 +9,12 @@ import com.example.spendwisely.data.entidades.Cuenta
 import com.example.spendwisely.data.repositorios.CuentaRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.math.BigDecimal
 
 class CuentaViewModel(application: Application) : AndroidViewModel(application) {
 
     val allCuentas : LiveData<List<Cuenta>>
-    val sumCuentas : LiveData<Double>
+    val sumCuentas : LiveData<BigDecimal>
     private val repository : CuentaRepository
 
     init {
@@ -41,13 +42,13 @@ class CuentaViewModel(application: Application) : AndroidViewModel(application) 
         }
     }
 
-    fun restarSaldo(gasto: Double) {
+    fun restarSaldo(gasto: BigDecimal) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.restarSaldo(gasto)
         }
     }
 
-    fun sumarSaldo(saldo: Double) {
+    fun sumarSaldo(saldo: BigDecimal) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.sumarSaldo(saldo)
         }

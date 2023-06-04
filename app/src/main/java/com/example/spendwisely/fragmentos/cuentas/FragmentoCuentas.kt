@@ -19,6 +19,7 @@ import com.example.spendwisely.data.entidades.Cuenta
 import com.example.spendwisely.data.view_models.CuentaViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import java.math.BigDecimal
 
 class FragmentoCuentas : Fragment(), FragCuentasAux, OnCuentaClickListener {
 
@@ -48,7 +49,7 @@ class FragmentoCuentas : Fragment(), FragCuentasAux, OnCuentaClickListener {
 
         mCuentaViewModel.allCuentas.observe(viewLifecycleOwner, Observer { listCuentas ->
             if (listCuentas.isEmpty()) {
-                mCuentaViewModel.addCuenta(Cuenta(0,"Efectivo",0.0))
+                mCuentaViewModel.addCuenta(Cuenta(0,"Efectivo", BigDecimal(0)))
                 adapter.setData(listCuentas)
             } else {
                 adapter.setData(listCuentas)
@@ -67,8 +68,8 @@ class FragmentoCuentas : Fragment(), FragCuentasAux, OnCuentaClickListener {
 
         //Lanzar nueva billetera (FAB onClick)
         fabCuentas.setOnClickListener{
-            val fragmentoNuevaBilletera = FragmentoNuevaBilletera()
-            launchFragNuevaBilletera(fragmentoNuevaBilletera)
+            val fragmentoNuevaCuenta = FragmentoNuevaCuenta()
+            launchFragNuevaBilletera(fragmentoNuevaCuenta)
         }
 
         return view
@@ -98,12 +99,12 @@ class FragmentoCuentas : Fragment(), FragCuentasAux, OnCuentaClickListener {
     }
 
     override fun onItemClick(cuenta: Cuenta) {
-        val fragmentoNuevaBilletera = FragmentoNuevaBilletera()
+        val fragmentoNuevaCuenta = FragmentoNuevaCuenta()
         val bundle = Bundle()
         bundle.putParcelable("Cuenta",cuenta)
-        fragmentoNuevaBilletera.arguments = bundle
+        fragmentoNuevaCuenta.arguments = bundle
 
-        launchFragNuevaBilletera(fragmentoNuevaBilletera)
+        launchFragNuevaBilletera(fragmentoNuevaCuenta)
     }
 
     override fun onLongItemClick(cuenta: Cuenta): Boolean {

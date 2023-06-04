@@ -5,16 +5,18 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import com.example.spendwisely.data.conversores.BigDecimalConverter
+import com.example.spendwisely.data.conversores.DateConverter
 import com.example.spendwisely.data.daos.CuentaDao
-import com.example.spendwisely.data.daos.GastoDao
+import com.example.spendwisely.data.daos.TransaccionDao
 import com.example.spendwisely.data.entidades.Cuenta
-import com.example.spendwisely.data.entidades.Gasto
+import com.example.spendwisely.data.entidades.Transaccion
 
-@Database(entities = [Gasto::class, Cuenta::class], version = 1, exportSchema = false)
-@TypeConverters(DateConverter::class)
+@Database(entities = [Transaccion::class, Cuenta::class], version = 1, exportSchema = false)
+@TypeConverters(DateConverter::class, BigDecimalConverter::class)
 abstract class SWRoomDatabase : RoomDatabase() {
 
-    abstract fun gastoDao() : GastoDao
+    abstract fun transaccionDao() : TransaccionDao
     abstract fun cuentaDao() : CuentaDao
 
     companion object {

@@ -1,4 +1,4 @@
-package com.example.spendwisely.data
+package com.example.spendwisely.data.conversores
 
 import androidx.room.TypeConverter
 import java.util.*

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".fragmentos.gastos.FragmentoNuevoGasto">
+    tools:context=".fragmentos.transacciones.FragmentoNuevaTransaccion">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -16,12 +16,33 @@
             android:layout_height="wrap_content"
             android:padding="10dp">
 
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/tipo_gasto"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/tipo_ingreso"
+                android:layout_margin="3dp"
+                android:text="GASTO"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/tipo_ingreso"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tipo_gasto"
+                android:layout_margin="3dp"
+                android:text="INGRESO"/>
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_cantidad"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/spinner_cuentas"
+                app:layout_constraintTop_toBottomOf="@+id/tipo_gasto"
                 android:hint="Cantidad"
                 app:startIconDrawable="@drawable/ic_baseline__money_24"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
@@ -34,9 +55,18 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
+            <Spinner
+                android:id="@+id/spinner_cuentas"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                app:layout_constraintTop_toBottomOf="@id/tipo_ingreso"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="10dp"
+                app:layout_constraintStart_toEndOf="@id/til_cantidad"/>
+
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tv_fecha"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@+id/til_cantidad"
                 app:layout_constraintStart_toStartOf="parent"
@@ -47,10 +77,10 @@
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tv_fecha_elegida"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@+id/til_cantidad"
-                app:layout_constraintLeft_toRightOf="@+id/tv_fecha"
+                app:layout_constraintStart_toEndOf="@+id/tv_fecha"
                 android:padding="10dp"
                 android:layout_marginTop="10dp"
                 android:text=""
@@ -85,12 +115,33 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/txt_categoria"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/til_nota"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:text="Categoría:"
+                android:layout_marginTop="10dp"
+                android:padding="10dp"
+                android:textSize="16sp"/>
+
+            <Spinner
+                android:id="@+id/spinner_categorias"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                app:layout_constraintTop_toBottomOf="@id/til_nota"
+                app:layout_constraintStart_toEndOf="@+id/txt_categoria"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="10dp"/>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_guardar_gasto"
+        android:id="@+id/btn_guardar_transaccion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
