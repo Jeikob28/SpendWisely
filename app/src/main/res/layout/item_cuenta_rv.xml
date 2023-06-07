@@ -5,32 +5,45 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
-    app:cardCornerRadius="10dp"
+    app:cardElevation="10dp"
     app:cardBackgroundColor="@color/orange">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:padding="10dp">
 
         <TextView
             android:id="@+id/tv_nombre"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="5dp"
-            android:text="Nombre" />
+            android:text="Nombre"
+            android:layout_margin="5dp"
+            android:textColor="@color/white"/>
+
+        <ImageView
+            android:id="@+id/icon_cuenta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_nombre"
+            android:layout_margin="5dp"
+            android:src="@drawable/baseline_wallet_24" />
 
         <TextView
             android:id="@+id/tv_saldo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginEnd="5dp"
-            android:layout_marginTop="5dp"
-            android:text="Saldo" />
+            app:layout_constraintTop_toBottomOf="@id/icon_cuenta"
+            android:layout_margin="5dp"
+            android:text="Saldo"
+            android:textColor="@color/white"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

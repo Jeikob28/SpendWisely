@@ -35,7 +35,7 @@ abstract class SWRoomDatabase : RoomDatabase() {
                     context.applicationContext,
                     SWRoomDatabase::class.java,
                     "sw_room_database"
-                ).build()
+                ).addCallback(SWRoomDatabaseCallback()).build()
                 INSTANCE = instance
                 return instance
             }

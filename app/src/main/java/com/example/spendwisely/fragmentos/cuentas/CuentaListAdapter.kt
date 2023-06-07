@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.spendwisely.R
 import com.example.spendwisely.data.entidades.Cuenta
+import java.util.Locale
 
 class CuentaListAdapter(private var mListener : OnCuentaClickListener) : RecyclerView.Adapter<CuentaListAdapter.CuentaViewHolder>() {
 
@@ -31,7 +32,7 @@ class CuentaListAdapter(private var mListener : OnCuentaClickListener) : Recycle
         val currentItem = cuentaList[position]
         holder.setListeners(currentItem)
         holder.itemView.findViewById<TextView>(R.id.tv_nombre).text = currentItem.nombre
-        holder.itemView.findViewById<TextView>(R.id.tv_saldo).text = currentItem.saldo.toString()
+        holder.itemView.findViewById<TextView>(R.id.tv_saldo).text = String.format(Locale.getDefault(),"%.2f",currentItem.saldo)
     }
 
     override fun getItemCount(): Int {

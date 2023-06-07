@@ -10,8 +10,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.spendwisely.R
@@ -19,7 +19,7 @@ import com.example.spendwisely.data.entidades.Cuenta
 import com.example.spendwisely.data.view_models.CuentaViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import java.math.BigDecimal
+import java.util.Locale
 
 class FragmentoCuentas : Fragment(), FragCuentasAux, OnCuentaClickListener {
 
@@ -34,7 +34,7 @@ class FragmentoCuentas : Fragment(), FragCuentasAux, OnCuentaClickListener {
         // Inflate the layout for this fragment
         val view : View = inflater.inflate(R.layout.fragment_fragmento_cuentas, container, false)
 
-        var saldoTotal = view.findViewById<TextView>(R.id.saldo_total)
+        val saldoTotal = view.findViewById<TextView>(R.id.saldo_total)
 
         fabCuentas = view.findViewById(R.id.fab_cuentas)
         botomNavView = activity?.findViewById(R.id.bottomNavigationBar)
@@ -43,25 +43,19 @@ class FragmentoCuentas : Fragment(), FragCuentasAux, OnCuentaClickListener {
         val recyclerView = view.findViewById<RecyclerView>(R.id.rv_cuentas)
         val adapter = CuentaListAdapter(this)
         recyclerView.adapter = adapter
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+
+        val gridLayoutManager = GridLayoutManager(requireContext(),2,LinearLayoutManager.VERTICAL,false)
+        recyclerView.layoutManager = gridLayoutManager
 
         mCuentaViewModel = ViewModelProvider(this)[CuentaViewModel::class.java]
 
-        mCuentaViewModel.allCuentas.observe(viewLifecycleOwner, Observer { listCuentas ->
-            if (listCuentas.isEmpty()) {
-                mCuentaViewModel.addCuenta(Cuenta(0,"Efectivo", BigDecimal(0)))
-                adapter.setData(listCuentas)
-            } else {
-                adapter.setData(listCuentas)
-            }
-        })
+        mCuentaViewModel.allCuentas.observe(viewLifecycleOwner) { listCuentas ->
+            adapter.setData(listCuentas)
+        }
 
-        mCuentaViewModel.sumCuentas.observe(viewLifecycleOwner, Observer { saldo ->
-            if (saldo != null) {
-                saldoTotal.text = saldo.toString()
-            } else
-                saldoTotal.text = "0"
-        })
+        mCuentaViewModel.sumCuentas.observe(viewLifecycleOwner) { saldo ->
+            saldoTotal.text = String.format(Locale.getDefault(),"%.2f",saldo)
+        }
 
         //Color del icono del FAB
         fabCuentas.imageTintList = ColorStateList.valueOf(Color.WHITE)

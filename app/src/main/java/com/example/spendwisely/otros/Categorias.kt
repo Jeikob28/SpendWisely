@@ -13,11 +13,18 @@ enum class Categorias(val valor: Int) {
     VIAJES(6),
     FACTURAS(7),
     MASCOTAS(8),
-    OTROS(9);
+    AHORROS(9),
+    DEPOSITO(10),
+    SALARIO(11),
+    OTROS(12);
 
     companion object {
-        fun obtenerCategoria(valor: Int): Categorias? {
-            return values().find { it.valor == valor }
+        fun obtenerCategoria(valor: Int): String? {
+            return values().find{it.valor == valor}?.name
+        }
+
+        fun obtenerValor(categoria: String): Int? {
+            return values().find{it.name == categoria}?.valor
         }
 
         fun obtenerImagenCategoria(valor: Int): Int {
@@ -32,7 +39,10 @@ enum class Categorias(val valor: Int) {
                 6 -> codCat = R.drawable.baseline_airplanemode_active_24
                 7 -> codCat = R.drawable.baseline_energy_savings_leaf_24
                 8 -> codCat = R.drawable.baseline_pets_24
-                9 -> codCat = R.drawable.baseline_attach_money_24
+                9 -> codCat = R.drawable.baseline_euro_24
+                10 -> codCat = R.drawable.baseline_account_balance_24
+                11 -> codCat = R.drawable.baseline_business_center_24
+                12 -> codCat = R.drawable.baseline_attach_money_24
             }
             return codCat
         }
@@ -49,7 +59,10 @@ enum class Categorias(val valor: Int) {
                 6 -> codColor = Color.parseColor("#2046FF")
                 7 -> codColor = Color.parseColor("#FF2525")
                 8 -> codColor = Color.parseColor("#19FFBE")
-                9 -> codColor = Color.parseColor("#D5C21F")
+                9 -> codColor = Color.parseColor("#7EF300")
+                10 -> codColor = Color.parseColor("#0062DB")
+                11 -> codColor = Color.parseColor("#000000")
+                12 -> codColor = Color.parseColor("#D5C21F")
             }
             return codColor
         }
