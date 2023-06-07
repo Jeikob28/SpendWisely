@@ -18,5 +18,6 @@ data class Transaccion(
     val categoria : Int,
     val esGasto : Boolean,
     val esIngreso : Boolean,
-    val cuenta : Int
+    val cuenta : Int,
+    val uriImagen : String
 ) : Parcelable
