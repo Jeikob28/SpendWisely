@@ -22,7 +22,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.spendwisely.MainActivity
+import com.example.spendwisely.activities.MainActivity
 import com.example.spendwisely.R
 import com.example.spendwisely.data.entidades.Transaccion
 import com.example.spendwisely.data.view_models.CuentaViewModel

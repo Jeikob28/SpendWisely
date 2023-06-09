@@ -8,13 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
-import com.example.spendwisely.MainActivity
+import com.example.spendwisely.activities.MainActivity
 import com.example.spendwisely.R
 import com.example.spendwisely.data.entidades.Cuenta
 import com.example.spendwisely.data.view_models.CuentaViewModel
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import java.math.BigDecimal
+import java.util.Locale
 
 class FragmentoNuevaCuenta : Fragment() {
 
@@ -38,7 +39,7 @@ class FragmentoNuevaCuenta : Fragment() {
             val saldo = view.findViewById<TextInputEditText>(R.id.tiet_saldo)
 
             nombre.setText(cuenta.nombre)
-            saldo.setText(cuenta.saldo.toString())
+            saldo.setText(String.format(Locale.getDefault(),"%.2f",cuenta.saldo))
         }
 
         botonGuardarBill.setOnClickListener {

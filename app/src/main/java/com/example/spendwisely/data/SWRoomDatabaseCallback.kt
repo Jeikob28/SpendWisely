@@ -10,13 +10,20 @@ class SWRoomDatabaseCallback : RoomDatabase.Callback() {
     override fun onCreate(db: SupportSQLiteDatabase) {
         super.onCreate(db)
 
-        val contentValues = ContentValues()
+        val contentValuesCuenta = ContentValues()
         val x : Long = 1
-        contentValues.put("id",x)
-        contentValues.put("nombre","Efectivo")
-        contentValues.put("saldo","0")
+        contentValuesCuenta.put("id",x)
+        contentValuesCuenta.put("nombre","Efectivo")
+        contentValuesCuenta.put("saldo","0")
 
-        db.insert("Cuentas",OnConflictStrategy.IGNORE,contentValues)
+        db.insert("Cuentas",OnConflictStrategy.IGNORE,contentValuesCuenta)
+
+        val contentValuesAjustesUsuario = ContentValues()
+        contentValuesAjustesUsuario.put("id",x)
+        contentValuesAjustesUsuario.put("activadoContrasenya",0)
+        contentValuesAjustesUsuario.put("contrasenya","")
+
+        db.insert("Ajustes_Usuario",OnConflictStrategy.IGNORE,contentValuesAjustesUsuario)
     }
 
 }

@@ -7,17 +7,20 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.example.spendwisely.data.conversores.BigDecimalConverter
 import com.example.spendwisely.data.conversores.DateConverter
+import com.example.spendwisely.data.daos.AjustesUsuarioDao
 import com.example.spendwisely.data.daos.CuentaDao
 import com.example.spendwisely.data.daos.TransaccionDao
+import com.example.spendwisely.data.entidades.AjustesUsuario
 import com.example.spendwisely.data.entidades.Cuenta
 import com.example.spendwisely.data.entidades.Transaccion
 
-@Database(entities = [Transaccion::class, Cuenta::class], version = 1, exportSchema = false)
+@Database(entities = [Transaccion::class, Cuenta::class, AjustesUsuario::class], version = 1, exportSchema = false)
 @TypeConverters(DateConverter::class, BigDecimalConverter::class)
 abstract class SWRoomDatabase : RoomDatabase() {
 
     abstract fun transaccionDao() : TransaccionDao
     abstract fun cuentaDao() : CuentaDao
+    abstract fun ajustesUsuarioDao() : AjustesUsuarioDao
 
     companion object {
 

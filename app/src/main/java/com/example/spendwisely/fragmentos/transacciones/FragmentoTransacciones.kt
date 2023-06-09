@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -53,7 +52,7 @@ class FragmentoTransacciones : Fragment(), FragTransaccionesAux, OnTransaccionCl
         mTransaccionViewModel = ViewModelProvider(this)[TransaccionViewModel::class.java]
         mCuentaViewModel = ViewModelProvider(this)[CuentaViewModel::class.java]
 
-        mTransaccionViewModel.allTransacciones.observe(viewLifecycleOwner, Observer { listTransacciones ->
+        mTransaccionViewModel.allTransacciones.observe(viewLifecycleOwner) { listTransacciones ->
             if (arguments != null) {
                 val filtroId = requireArguments().get("Filtro") as Int
                 var nuevaLista = emptyList<Transaccion>()
@@ -69,7 +68,7 @@ class FragmentoTransacciones : Fragment(), FragTransaccionesAux, OnTransaccionCl
             } else {
                 adapter.setData(listTransacciones)
             }
-        })
+        }
 
         btnFiltros.setOnClickListener {
             val fragmentoFiltros = FragmentoFiltros()
@@ -89,7 +88,7 @@ class FragmentoTransacciones : Fragment(), FragTransaccionesAux, OnTransaccionCl
     }
 
     private fun launchFragNuevoGasto(fragmentoNuevoGasto : Fragment) {
-        parentFragmentManager.beginTransaction().replace(R.id.frag_gastos, fragmentoNuevoGasto).addToBackStack("yokse").commit()
+        parentFragmentManager.beginTransaction().replace(R.id.frag_gastos, fragmentoNuevoGasto).addToBackStack(null).commit()
         hideFAB(false)
         hideBotomNavBar(false)
         hideBtnFiltros(false)
